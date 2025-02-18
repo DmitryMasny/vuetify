@@ -5,23 +5,29 @@
 <script lang="ts">
 import { defineComponent, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { fetchUserData } from "@/utils/auth";
 
+/** Страница авторизации через Google */
 export default defineComponent({
   name: "AuthCallback",
   setup() {
     const router = useRouter();
-    onMounted(() => {
+
+    onMounted(async () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get("token");
 
       if (token) {
-        // Сохраняем токен, например, в localStorage или Vuex
         localStorage.setItem("jwt", token);
-        // Обновляем состояние приложения или `store`
-        // Перенаправляем пользователя на главную или другую страницу
-        router.push("/");
+        try {
+          await fetchUserData(token);
+          router.push("/");
+        } catch {
+          router.push("/login");
+        }
       } else {
         console.error("Ошибка авторизации: токен не получен");
+        router.push("/login");
       }
     });
     return {};
