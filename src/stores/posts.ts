@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { apiRequest } from "@/utils/api";
 // import type { Post as PostApi } from "@/types/api";
 
 export interface Post {
@@ -13,8 +14,9 @@ export const usePostsStore = defineStore("posts", () => {
   const posts = ref<Post[]>([]);
 
   const fetchPosts = async () => {
-    const response = await fetch("http://localhost:7007/api/posts");
-    posts.value = await response.json();
+    const postsR = await apiRequest("/api/posts", "GET");
+    console.log("postsR", postsR);
+    posts.value = [];
   };
 
   return { posts, fetchPosts };

@@ -10,7 +10,7 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
-    "generate-api": "openapi -i http://localhost:7007/api/docs-json -o src/types/api"
+    "generate-api": "npx openapi-typescript http://localhost:7007/api/docs-json --output src/types/api.ts"
   },
   "dependencies": {
     "@mdi/font": "^7.4.47",
@@ -30,7 +30,7 @@
     "eslint": "^9.14.0",
     "eslint-plugin-vue": "^9.30.0",
     "npm-run-all2": "^7.0.1",
-    "openapi-typescript-codegen": "^0.29.0",
+    "openapi-typescript": "^7.6.1",
     "sass": "1.77.8",
     "sass-embedded": "^1.77.8",
     "typescript": "~5.6.3",
